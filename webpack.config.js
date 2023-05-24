@@ -5,7 +5,7 @@ const Dotenv = require("dotenv-webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  entry: path.join(__dirname, "index.tsx"),
+  entry: path.join(__dirname, "src", "index.tsx"),
   mode: "production",
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -37,7 +37,7 @@ module.exports = {
         },
       },
       {
-        test: /\.scss$/i,
+        test: /\.css$/i,
         use: ["style-loader", "css-loader"],
       },
       {
