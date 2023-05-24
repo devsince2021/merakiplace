@@ -7,12 +7,13 @@
   "author": "devsince2021 <dev.ryu2021@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "ENV_NODE=dev && webpack-dev-server --mode development"
+    "dev": "ENV_NODE=development && webpack-dev-server --mode development",
+    "build": "ENV_NODE=production && webpack"
   },
   "dependencies": {
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "lodash": "^4.17.21"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.21.4",
@@ -22,6 +23,7 @@
     "@types/react": "^18.0.35",
     "@types/react-dom": "^18.0.11",
     "babel-loader": "^9.1.2",
+    "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.3",
     "dotenv-webpack": "^8.0.1",
     "file-loader": "^6.2.0",
