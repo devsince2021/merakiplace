@@ -1,20 +1,21 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
+import { Path } from "../constants";
 import Root from "./Root";
-import Feed from "./Feed";
+import Home from "./Home";
 import Scrap from "./Scrap";
 
 const appRouter = createBrowserRouter([
   {
-    path: "/",
+    path: Path.root,
     element: <Root />,
     children: [
       {
-        path: "feed",
-        element: <Feed />,
+        path: Path.home,
+        element: <Home />,
       },
       {
-        path: "scrap",
+        path: Path.scrap,
         element: <Scrap />,
       },
     ],
