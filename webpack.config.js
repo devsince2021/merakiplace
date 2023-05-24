@@ -2,10 +2,11 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: path.join(__dirname, "index.tsx"),
-  mode: "development",
+  mode: "production",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
@@ -25,7 +26,7 @@ module.exports = {
           },
         },
         resolve: {
-          extensions: ["", ".js", ".jsx"],
+          extensions: [".js", ".jsx"],
         },
       },
       {
@@ -51,6 +52,15 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new Dotenv(),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: "public/assets/*.{png,gif,webp}",
+          to: "assets/[name][ext]",
+          noErrorOnMissing: true,
+        },
+      ],
+    }),
   ],
   devServer: {
     hot: true,
