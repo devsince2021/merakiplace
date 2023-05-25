@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
-import { Path, colors, images, words } from "../../constants";
+import { Path, Colors, Images, Words } from "../../../constants";
 
 interface Destination {
   to: string;
@@ -13,17 +13,17 @@ interface Destination {
 const buttons: Destination[] = [
   {
     to: Path.home,
-    icon: [images.home_off, images.home_on],
-    title: words.home,
+    icon: [Images.home_off, Images.home_on],
+    title: Words.home,
   },
   {
     to: Path.scrap,
-    icon: [images.scrap_off, images.scrap_on],
-    title: words.scrap,
+    icon: [Images.scrap_off, Images.scrap_on],
+    title: Words.scrap,
   },
 ];
 
-const BottomNavigation = () => {
+export const BottomNavigation = () => {
   const { pathname } = useLocation();
 
   return (
@@ -56,7 +56,7 @@ const Container = styled.div`
   bottom: 0;
   left: 0;
 
-  background-color: ${colors.black100};
+  background-color: ${Colors.black100};
   border-radius: 30px;
   padding: 20px 80px;
 `;
@@ -74,12 +74,10 @@ const StyledText = styled.div<{ isActive: boolean }>`
   font-size: 10px;
   line-height: 12px;
 
-  color: ${({ isActive }) => (isActive ? colors.white100 : colors.black80)};
+  color: ${({ isActive }) => (isActive ? Colors.white100 : Colors.black80)};
 `;
 
 const StyledImg = styled.img`
   width: 20px;
   height: 22px;
 `;
-
-export default BottomNavigation;
