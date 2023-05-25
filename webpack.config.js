@@ -6,7 +6,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: path.join(__dirname, "src", "index.tsx"),
-  mode: "production",
+  mode: process.env.NODE_ENV,
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
@@ -66,5 +66,7 @@ module.exports = {
     hot: true,
     host: "localhost",
     port: 3001,
+    open: true,
+    historyApiFallback: true,
   },
 };
