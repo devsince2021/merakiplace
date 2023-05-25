@@ -5,7 +5,7 @@ const baseUrl =
 
 const attachBaseUrl = (path: string) => `${baseUrl}/${path}`;
 
-export const images = {
+export const Images = {
   scrap_on: attachBaseUrl("scrap_on@2x.png"),
   scrap_off: attachBaseUrl("scrap_off@2x.png"),
   home_on: attachBaseUrl("home_on@2x.png"),

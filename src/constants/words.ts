@@ -1,4 +1,4 @@
-export const words = {
-  home: "홈",
-  scrap: "스크랩",
-};
+export enum Words {
+  home = "홈",
+  scrap = "스크랩",
+}
