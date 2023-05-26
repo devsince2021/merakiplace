@@ -4,6 +4,8 @@ import _ from "lodash";
 
 import { Path } from "../constants";
 import { RootLayout } from "../components";
+import { ThemeProvider } from "styled-components";
+import { theme } from "../constants/styles";
 
 const getPathname = () => {
   return Path.home;
@@ -25,9 +27,11 @@ const Root = () => {
   }, [destination]);
 
   return (
-    <RootLayout>
-      <Outlet />
-    </RootLayout>
+    <ThemeProvider theme={theme}>
+      <RootLayout>
+        <Outlet />
+      </RootLayout>
+    </ThemeProvider>
   );
 };
 
