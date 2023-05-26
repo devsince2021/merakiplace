@@ -1,4 +1,5 @@
-export { images } from "./images";
-export { colors } from "./styles";
-export { words } from "./words";
+export { Images } from "./images";
+export { Colors } from "./styles";
+export { Words } from "./words";
 export { Path } from "./path";
+export { Responsive } from "./responsive";

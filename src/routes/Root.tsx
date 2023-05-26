@@ -3,8 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import _ from "lodash";
 
 import { Path } from "../constants";
-import Page from "../components/layouts/Page";
-import BottomNavigation from "../components/navigations/BottomNavigation";
+import { RootLayout } from "../components";
 
 const getPathname = () => {
   return Path.home;
@@ -26,10 +25,9 @@ const Root = () => {
   }, [destination]);
 
   return (
-    <Page>
+    <RootLayout>
       <Outlet />
-      <BottomNavigation />
-    </Page>
+    </RootLayout>
   );
 };
 

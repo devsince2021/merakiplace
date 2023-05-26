@@ -2,7 +2,8 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
-import { Path, colors, images, words } from "../../constants";
+import { Path, Images, Words } from "../../../constants";
+import { vw, vh } from "../../../utils";
 
 interface Destination {
   to: string;
@@ -13,17 +14,17 @@ interface Destination {
 const buttons: Destination[] = [
   {
     to: Path.home,
-    icon: [images.home_off, images.home_on],
-    title: words.home,
+    icon: [Images.home_off, Images.home_on],
+    title: Words.home,
   },
   {
     to: Path.scrap,
-    icon: [images.scrap_off, images.scrap_on],
-    title: words.scrap,
+    icon: [Images.scrap_off, Images.scrap_on],
+    title: Words.scrap,
   },
 ];
 
-const BottomNavigation = () => {
+export const BottomNavigation = () => {
   const { pathname } = useLocation();
 
   return (
@@ -34,7 +35,7 @@ const BottomNavigation = () => {
         return (
           <StyledLink to={to} key={to}>
             <StyledImg src={icon[Number(isActive)]} alt={title} />
-            <div style={{ height: "10px" }} />
+            <div style={{ height: vh(10) }} />
             <StyledText isActive={isActive}>{title}</StyledText>
           </StyledLink>
         );
@@ -49,16 +50,15 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  width: 375px;
-  height: 85px; // #todo: responsive
+  width: ${vw(375)};
+  padding: ${vh(20)} ${vw(80)};
 
   position: fixed;
   bottom: 0;
   left: 0;
 
-  background-color: ${colors.black100};
+  background-color: ${({ theme }) => theme.colors.black100};
   border-radius: 30px;
-  padding: 20px 80px;
 `;
 
 const StyledLink = styled(Link)`
@@ -71,15 +71,13 @@ const StyledLink = styled(Link)`
 
 const StyledText = styled.div<{ isActive: boolean }>`
   font-weight: 600;
-  font-size: 10px;
-  line-height: 12px;
+  font-size: ${vw(10)};
+  line-height: ${vw(12)};
 
-  color: ${({ isActive }) => (isActive ? colors.white100 : colors.black80)};
+  color: ${({ theme, isActive }) =>
+    isActive ? theme.colors.white100 : theme.colors.black80};
 `;
 
 const StyledImg = styled.img`
-  width: 20px;
-  height: 22px;
+  width: ${vw(20)};
 `;
-
-export default BottomNavigation;
