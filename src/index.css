@@ -83,6 +83,7 @@ video {
   padding: 0;
   border: 0;
   font-size: 62.5%;
+  font-family: Arial, Helvetica, sans-serif;
   line-height: 1;
   vertical-align: baseline;
   box-sizing: border-box;
@@ -123,6 +124,13 @@ table {
 }
 
 a:focus {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  text-decoration: none;
+  color: inherit;
+}
+
+input:focus {
   -webkit-tap-highlight-color: transparent;
   outline: none;
   text-decoration: none;
