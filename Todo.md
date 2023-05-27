@@ -32,7 +32,7 @@
 <br />
 
 3. 리스트\
-   [] New York Times의 search api를 적용한다.\
+   [v] New York Times의 search api를 적용한다.\
    [] 무한 스크롤 형태로 구현되어야 한다.\
    [] 필터에 따라 목록이 변경되어야 한다.\
    [] 스크랩을 할 수 있다.\
