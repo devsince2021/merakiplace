@@ -1,67 +1,134 @@
-import React, { ChangeEvent, FC, useRef, useState } from "react";
+import React, { ChangeEvent, FC, useEffect, useRef, useState } from "react";
 import Modal, { Props as ModalProps } from "react-modal";
 import styled, { css } from "styled-components";
 import _ from "lodash";
 
 import { vw } from "../../utils";
-import { Images } from "../../constants";
+import { Images, Regex, Words } from "../../constants";
+import { Country, Filter } from "../../types";
 
 const Countries = [
-  "대한민국",
-  "중국",
-  "일본",
-  "미국",
-  "북한",
-  "러시아",
-  "프랑스",
-  "영국",
+  {
+    id: "SOUTH KOREA",
+    name: "대한민국",
+    order: 0,
+  },
+  {
+    id: "CHINA",
+    name: "중국",
+    order: 1,
+  },
+  {
+    id: "JAPAN",
+    name: "일본",
+    order: 2,
+  },
+  {
+    id: "NORTH KOREA",
+    name: "북한",
+    order: 3,
+  },
+  {
+    id: "RUSSIA",
+    name: "러시아",
+    order: 4,
+  },
+  {
+    id: "FRANCE",
+    name: "프랑스",
+    order: 5,
+  },
+  {
+    id: "ENGLAND",
+    name: "영국",
+    order: 6,
+  },
 ];
 
+const Default_Value: Filter = {
+  headline: "",
+  date: "",
+  countries: [],
+};
+
 interface Props extends ModalProps {
-  onApply: () => void;
+  initialValue?: Filter;
+  onApply: (filter: Filter) => void;
 }
 
-export const FilterModal: FC<Props> = ({ isOpen, onRequestClose, onApply }) => {
-  const [headline, setHeadline] = useState("");
-  const [date, setDate] = useState("");
-  const [countries, setCountries] = useState([]);
-
+export const FilterModal: FC<Props> = ({
+  initialValue,
+  isOpen,
+  onRequestClose,
+  onApply,
+}) => {
+  const [filter, setFilter] = useState<Filter>(Default_Value);
   const dateInputRef = useRef<HTMLInputElement>(null);
 
-  const changeHeadline = (event: ChangeEvent<HTMLInputElement>) => {
-    setHeadline(event.target.value);
-  };
+  useEffect(() => {
+    if (isOpen && !_.isNil(initialValue)) {
+      setFilter(initialValue);
+    }
+  }, [isOpen]);
 
   const openDatePicker = () => {
     dateInputRef.current?.showPicker();
   };
 
-  const changeDate = (event: ChangeEvent<HTMLInputElement>) => {
-    setDate(event.target.value);
+  const changeHeadline = (event: ChangeEvent<HTMLInputElement>) => {
+    const headline = event.target.value;
+
+    if (!Regex.korean_and_english.test(headline)) {
+      alert(Words.modal_headline_alert);
+      return;
+    }
+
+    setFilter((prev) => ({ ...prev, headline }));
   };
 
-  const selectCountry = () => {
-    //
+  const changeDate = (event: ChangeEvent<HTMLInputElement>) => {
+    setFilter((prev) => ({
+      ...prev,
+      date: event.target.value,
+    }));
+  };
+
+  const selectCountry = (country: Country) => () => {
+    const hasSelected = filter.countries.find(({ id }) => id === country.id);
+
+    if (hasSelected) {
+      setFilter((prev) => ({
+        ...prev,
+        countries: prev.countries.filter(({ id }) => id !== country.id),
+      }));
+    } else {
+      setFilter((prev) => ({
+        ...prev,
+        countries: [...prev.countries, country].sort(
+          (a, b) => a.order - b.order
+        ),
+      }));
+    }
   };
 
   const applyFilter = () => {
-    onApply();
+    onApply(filter);
   };
 
+  const dateText = !_.isEmpty(filter.date)
+    ? filter.date
+    : Words.modal_input_date_placeholder;
+
   return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={onRequestClose}
-      style={customStyles}
-      contentLabel="Example label"
-    >
+    <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={customStyles}>
       <Field>
-        <Label>헤드라인</Label>
+        <Label>{Words.modal_input_headline_title}</Label>
         <InputContainer>
           <TextInput
+            type="text"
             onChange={changeHeadline}
-            value={headline}
-            placeholder="검색하실 헤드라인을 입력해주세요."
+            value={filter.headline}
+            placeholder={Words.modal_input_headline_placeholder}
           />
         </InputContainer>
       </Field>
@@ -69,14 +136,15 @@ export const FilterModal: FC<Props> = ({ isOpen, onRequestClose, onApply }) => {
       <Blank />
 
       <Field>
-        <Label>날짜</Label>
+        <Label>{Words.modal_input_date_title}</Label>
         <InputContainer>
           <DateSelector onClick={openDatePicker}>
-            <DateText isActive={!_.isEmpty(date)}></DateText>
-            <Icon src={Images.calendar} />
+            <DateText isActive={!_.isEmpty(filter.date)}>{dateText}</DateText>
+            <Icon src={Images.calendar_gray} />
             <TextInput
               ref={dateInputRef}
               onChange={changeDate}
+              value={filter.date}
               type="date"
               noShow
             />
@@ -87,17 +155,29 @@ export const FilterModal: FC<Props> = ({ isOpen, onRequestClose, onApply }) => {
       <Blank />
 
       <div>
-        <Label>국가</Label>
+        <Label>{Words.modal_input_country_title}</Label>
         <CountryContainer>
-          {Countries.map((c) => {
+          {Countries.map((country) => {
+            const isSelected = filter.countries.find(
+              ({ id }) => id === country.id
+            );
+
             return (
-              <CountrySelector onClick={selectCountry}>{c}</CountrySelector>
+              <CountrySelector
+                isActive={Boolean(isSelected)}
+                key={country.id}
+                onClick={selectCountry(country)}
+              >
+                {country.name}
+              </CountrySelector>
             );
           })}
         </CountryContainer>
       </div>
 
-      <ApplyButton onClick={applyFilter}>필터 적용하기</ApplyButton>
+      <ApplyButton onClick={applyFilter}>
+        {Words.modal_apply_filter}
+      </ApplyButton>
     </Modal>
   );
 };
@@ -144,7 +224,7 @@ const InputContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  padding: 0px ${vw(20)};
+  padding: 0px 20px;
 
   border: 1px solid ${({ theme }) => theme.colors.gray};
   border-radius: 8px;
@@ -227,12 +307,20 @@ const CountrySelector = styled.div<{ isActive?: boolean }>`
   font-weight: 400;
   letter-spacing: -0.04em;
 
-  border: 1px solid black;
+  border: 1px solid ${({ theme }) => theme.colors.gray};
   border-radius: 30px;
 
   padding: ${vw(5)} ${vw(12)};
   margin-bottom: ${vw(6)};
   margin-right: ${vw(4)};
+
+  ${({ isActive, theme }) =>
+    isActive &&
+    css`
+      border: 1px solid ${({ theme }) => theme.colors.blueMain};
+      background-color: ${theme.colors.blueMain};
+      color: ${theme.colors.white100};
+    `}
 `;
 
 const ApplyButton = styled.div`

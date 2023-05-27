@@ -14,13 +14,13 @@ interface Destination {
 const buttons: Destination[] = [
   {
     to: Path.home,
-    icon: [Images.home_off, Images.home_on],
-    title: Words.home,
+    icon: [Images.home_gray, Images.home_white],
+    title: Words.nav_home,
   },
   {
     to: Path.scrap,
-    icon: [Images.scrap_off, Images.scrap_on],
-    title: Words.scrap,
+    icon: [Images.scrap_gray, Images.scrap_white],
+    title: Words.nav_scrap,
   },
 ];
 
