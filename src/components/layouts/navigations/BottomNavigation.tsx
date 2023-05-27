@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 import { Path, Images, Words } from "../../../constants";
-import { vw, vh } from "../../../utils";
+import { vw } from "../../../utils";
 
 interface Destination {
   to: string;
@@ -35,7 +35,7 @@ export const BottomNavigation = () => {
         return (
           <StyledLink to={to} key={to}>
             <StyledImg src={icon[Number(isActive)]} alt={title} />
-            <div style={{ height: vh(10) }} />
+            <Blank />
             <StyledText isActive={isActive}>{title}</StyledText>
           </StyledLink>
         );
@@ -51,7 +51,10 @@ const Container = styled.div`
   justify-content: space-between;
 
   width: ${vw(375)};
-  padding: ${vh(20)} ${vw(80)};
+  padding: ${vw(20)} ${vw(80)};
+
+  min-height: 65px;
+  max-height: 95px;
 
   position: fixed;
   bottom: 0;
@@ -71,13 +74,19 @@ const StyledLink = styled(Link)`
 
 const StyledText = styled.div<{ isActive: boolean }>`
   font-weight: 600;
-  font-size: ${vw(10)};
-  line-height: ${vw(12)};
+  font-size: 1rem;
+  line-height: 1.2rem;
 
   color: ${({ theme, isActive }) =>
     isActive ? theme.colors.white100 : theme.colors.black80};
 `;
 
 const StyledImg = styled.img`
+  min-width: 14px;
   width: ${vw(20)};
+  max-width: 24px;
+`;
+
+const Blank = styled.div`
+  height: 10px;
 `;
