@@ -82,10 +82,11 @@ video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
-  font: inherit;
+  font-size: 62.5%;
+  line-height: 1;
   vertical-align: baseline;
   box-sizing: border-box;
+  overflow: hidden;
 }
 /* HTML5 display-role reset for older browsers */
 article,
@@ -100,9 +101,6 @@ menu,
 nav,
 section {
   display: block;
-}
-body {
-  line-height: 1;
 }
 ol,
 ul {
@@ -124,6 +122,9 @@ table {
   border-spacing: 0;
 }
 
-body {
-  overflow-x: hidden;
+a:focus {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  text-decoration: none;
+  color: inherit;
 }
