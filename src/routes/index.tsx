@@ -2,7 +2,7 @@ import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { Path } from "../constants";
 import Root from "./Root";
-import Home from "./Home";
+import Home from "./home";
 import Scrap from "./Scrap";
 
 const appRouter = createBrowserRouter([
