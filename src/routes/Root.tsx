@@ -27,11 +27,9 @@ const Root = () => {
   }, [destination]);
 
   return (
-    <ThemeProvider theme={theme}>
-      <RootLayout>
-        <Outlet />
-      </RootLayout>
-    </ThemeProvider>
+    <RootLayout>
+      <Outlet />
+    </RootLayout>
   );
 };
 
