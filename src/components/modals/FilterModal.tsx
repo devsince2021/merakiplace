@@ -52,7 +52,7 @@ const Default_Value: Filter = {
 };
 
 interface Props extends ModalProps {
-  initialValue?: Filter;
+  initialValue: Filter;
   onApply: (filter: Filter) => void;
 }
 
@@ -66,7 +66,7 @@ export const FilterModal: FC<Props> = ({
   const dateInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (isOpen && !_.isNil(initialValue)) {
+    if (isOpen && !_.isEqual(initialValue, Default_Value)) {
       setFilter(initialValue);
     }
   }, [isOpen]);

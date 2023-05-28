@@ -1,12 +1,16 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Modal from "react-modal";
 
-import { Country, Filter } from "../../../../types";
 import { vw } from "../../../../utils";
-import { Images, Words } from "../../../../constants";
+import { update } from "../../../../redux/filterSlice";
+import { Country, Filter } from "../../../../types";
+import { Images, Path, Words } from "../../../../constants";
 import { FilterModal } from "../../../modals";
 import { FilterButton } from "./FilterButton";
+import { useLocation } from "react-router-dom";
+import { Store } from "../../../../redux";
 
 Modal.setAppElement("#root");
 
@@ -22,8 +26,12 @@ const getDisplayText = (countries: Country[] = []) => {
 };
 
 export const FilterHeader = () => {
+  const pathname = useLocation().pathname as Path;
+
   const [isModalOpened, setIsModalOpened] = useState(false);
-  const [selectedFilter, setSelectedFilter] = useState<Filter>();
+  const selectedFilter = useSelector((state: Store) => state.filter[pathname]);
+
+  const dispatch = useDispatch();
 
   const openModal = () => {
     setIsModalOpened(true);
@@ -35,7 +43,7 @@ export const FilterHeader = () => {
 
   const selectFilter = (filter: Filter) => {
     setIsModalOpened(false);
-    setSelectedFilter(filter);
+    dispatch(update({ pathname: pathname, filter }));
   };
 
   return (
@@ -45,19 +53,19 @@ export const FilterHeader = () => {
           onClick={openModal}
           placeholder={Words.header_headline_placeholder}
           iconPaths={[Images.search_gray, Images.search_blue]}
-          value={selectedFilter?.headline}
+          value={selectedFilter.headline}
         />
         <div style={{ width: vw(7) }} />
         <FilterButton
           onClick={openModal}
           placeholder={Words.header_date_placeholder}
           iconPaths={[Images.calendar_gray, Images.calendar_blue]}
-          value={selectedFilter?.date}
+          value={selectedFilter.date}
         />
         <div style={{ width: vw(7) }} />
         <FilterButton
           onClick={openModal}
-          value={getDisplayText(selectedFilter?.countries)}
+          value={getDisplayText(selectedFilter.countries)}
           placeholder={Words.header_country_placeholder}
         />
       </Container>
