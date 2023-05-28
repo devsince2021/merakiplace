@@ -5,7 +5,7 @@ import Modal from "react-modal";
 
 import { vw } from "../../../../utils";
 import { update } from "../../../../redux/filterSlice";
-import { Country, Filter } from "../../../../types";
+import { Country, UserModalInput } from "../../../../types";
 import { Images, Path, Words } from "../../../../constants";
 import { FilterModal } from "../../../modals";
 import { FilterButton } from "./FilterButton";
@@ -41,9 +41,11 @@ export const FilterHeader = () => {
     setIsModalOpened(false);
   };
 
-  const selectFilter = (filter: Filter) => {
+  const selectFilter = (filter: UserModalInput) => {
+    const newFilter = { ...filter, page: 0 };
+
     setIsModalOpened(false);
-    dispatch(update({ pathname: pathname, filter }));
+    dispatch(update({ pathname, filter: newFilter }));
   };
 
   return (

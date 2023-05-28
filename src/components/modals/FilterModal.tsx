@@ -5,7 +5,7 @@ import _ from "lodash";
 
 import { vw } from "../../utils";
 import { Images, Regex, Words } from "../../constants";
-import { Country, Filter } from "../../types";
+import { Country, UserModalInput } from "../../types";
 
 const Countries = [
   {
@@ -45,15 +45,15 @@ const Countries = [
   },
 ];
 
-const Default_Value: Filter = {
+const Default_Value: UserModalInput = {
   headline: "",
   date: "",
   countries: [],
 };
 
 interface Props extends ModalProps {
-  initialValue: Filter;
-  onApply: (filter: Filter) => void;
+  initialValue: UserModalInput;
+  onApply: (filter: UserModalInput) => void;
 }
 
 export const FilterModal: FC<Props> = ({
@@ -62,12 +62,12 @@ export const FilterModal: FC<Props> = ({
   onRequestClose,
   onApply,
 }) => {
-  const [filter, setFilter] = useState<Filter>(Default_Value);
+  const [userInput, setUserInput] = useState<UserModalInput>(Default_Value);
   const dateInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (isOpen && !_.isEqual(initialValue, Default_Value)) {
-      setFilter(initialValue);
+      setUserInput(initialValue);
     }
   }, [isOpen]);
 
@@ -83,26 +83,26 @@ export const FilterModal: FC<Props> = ({
       return;
     }
 
-    setFilter((prev) => ({ ...prev, headline }));
+    setUserInput((prev) => ({ ...prev, headline }));
   };
 
   const changeDate = (event: ChangeEvent<HTMLInputElement>) => {
-    setFilter((prev) => ({
+    setUserInput((prev) => ({
       ...prev,
       date: event.target.value,
     }));
   };
 
   const selectCountry = (country: Country) => () => {
-    const hasSelected = filter.countries.find(({ id }) => id === country.id);
+    const hasSelected = userInput.countries.find(({ id }) => id === country.id);
 
     if (hasSelected) {
-      setFilter((prev) => ({
+      setUserInput((prev) => ({
         ...prev,
         countries: prev.countries.filter(({ id }) => id !== country.id),
       }));
     } else {
-      setFilter((prev) => ({
+      setUserInput((prev) => ({
         ...prev,
         countries: [...prev.countries, country].sort(
           (a, b) => a.order - b.order
@@ -112,11 +112,11 @@ export const FilterModal: FC<Props> = ({
   };
 
   const applyFilter = () => {
-    onApply(filter);
+    onApply(userInput);
   };
 
-  const dateText = !_.isEmpty(filter.date)
-    ? filter.date
+  const dateText = !_.isEmpty(userInput.date)
+    ? userInput.date
     : Words.modal_input_date_placeholder;
 
   return (
@@ -127,7 +127,7 @@ export const FilterModal: FC<Props> = ({
           <TextInput
             type="text"
             onChange={changeHeadline}
-            value={filter.headline}
+            value={userInput.headline}
             placeholder={Words.modal_input_headline_placeholder}
           />
         </InputContainer>
@@ -139,12 +139,14 @@ export const FilterModal: FC<Props> = ({
         <Label>{Words.modal_input_date_title}</Label>
         <InputContainer>
           <DateSelector onClick={openDatePicker}>
-            <DateText isActive={!_.isEmpty(filter.date)}>{dateText}</DateText>
+            <DateText isActive={!_.isEmpty(userInput.date)}>
+              {dateText}
+            </DateText>
             <Icon src={Images.calendar_gray} />
             <TextInput
               ref={dateInputRef}
               onChange={changeDate}
-              value={filter.date}
+              value={userInput.date}
               type="date"
               noShow
             />
@@ -158,7 +160,7 @@ export const FilterModal: FC<Props> = ({
         <Label>{Words.modal_input_country_title}</Label>
         <CountryContainer>
           {Countries.map((country) => {
-            const isSelected = filter.countries.find(
+            const isSelected = userInput.countries.find(
               ({ id }) => id === country.id
             );
 
