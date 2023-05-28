@@ -50,6 +50,9 @@ export const NewsCard: FC<Props> = ({ item, onClickCard, onChangeScrap }) => {
 
 const Container = styled.div`
   width: ${vw(335)};
+  min-height: 104px;
+
+  margin-bottom: 10px;
   padding: ${vw(10)} ${vw(20)};
   background-color: ${({ theme }) => theme.colors.white90};
   border-radius: 8px;
