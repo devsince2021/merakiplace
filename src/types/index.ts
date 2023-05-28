@@ -1,4 +1,8 @@
-export interface Filter {
+export interface Filter extends UserModalInput {
+  page: number;
+}
+
+export interface UserModalInput {
   headline: string;
   date: string; // yyyy-mm-dd
   countries: Country[];
