@@ -1,16 +1,13 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Modal from "react-modal";
 
 import { vw } from "../../../../utils";
-import { update } from "../../../../redux/filterSlice";
 import { Country, UserModalInput } from "../../../../types";
-import { Images, Path, Words } from "../../../../constants";
+import { Images, Words } from "../../../../constants";
+import { useSelectorFilter } from "../../../../hooks";
 import { FilterModal } from "../../../modals";
 import { FilterButton } from "./FilterButton";
-import { useLocation } from "react-router-dom";
-import { Store } from "../../../../redux";
 
 Modal.setAppElement("#root");
 
@@ -26,12 +23,8 @@ const getDisplayText = (countries: Country[] = []) => {
 };
 
 export const FilterHeader = () => {
-  const pathname = useLocation().pathname as Path;
-
   const [isModalOpened, setIsModalOpened] = useState(false);
-  const selectedFilter = useSelector((state: Store) => state.filter[pathname]);
-
-  const dispatch = useDispatch();
+  const [selectedFilter, setSelectedFilter] = useSelectorFilter();
 
   const openModal = () => {
     setIsModalOpened(true);
@@ -42,10 +35,8 @@ export const FilterHeader = () => {
   };
 
   const selectFilter = (filter: UserModalInput) => {
-    const newFilter = { ...filter, page: 0 };
-
     setIsModalOpened(false);
-    dispatch(update({ pathname, filter: newFilter }));
+    setSelectedFilter({ ...filter, page: 0 });
   };
 
   return (
