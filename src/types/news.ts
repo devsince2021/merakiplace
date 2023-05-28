@@ -10,11 +10,13 @@ export interface News {
 }
 
 export const createNews = (protocol: Docs): News => {
+  const date = protocol.pub_date?.substring(0, 10).split("-").join(".");
+
   return {
     title: protocol.headline.main,
     reporter: protocol.byline.original ?? "No name",
     organization: protocol.byline.organization ?? protocol.source,
-    publishDate: protocol.pub_date,
+    publishDate: date,
     webUrl: protocol.web_url,
     isScrapped: false,
   };
