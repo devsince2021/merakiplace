@@ -14,4 +14,6 @@ export const Images = {
   search_blue: attachBaseUrl("search_blue@2x.png"),
   calendar_gray: attachBaseUrl("calendar_check_gray@2x.png"),
   calendar_blue: attachBaseUrl("calendar_check_blue@2x.png"),
+  star_empty: attachBaseUrl("star_empty@2x.png"),
+  star_filled: attachBaseUrl("star_filled@2x.png"),
 };
