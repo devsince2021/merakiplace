@@ -2,18 +2,24 @@ import React, { Fragment } from "react";
 import styled from "styled-components";
 import ClipLoader from "react-spinners/ClipLoader";
 import _ from "lodash";
-import { useHomeData } from "./hooks";
 
 import { NAVIGATION_HEIGHT } from "../../components/navigations/BottomNavigation";
 import { News } from "../../types";
 import { vw } from "../../utils";
-import { NewsCard } from "../../components";
+import { ErrorScreen, NewsCard } from "../../components";
 import { Colors, Words } from "../../constants";
+import { useHomeData } from "./hooks";
 import { HomeEmptyScreen } from "./HomeEmptyScreen";
 
 export const Home = () => {
-  const { observerRef, isLoading, newsList, isEmpty, changeScrapNews } =
-    useHomeData();
+  const {
+    observerRef,
+    isLoading,
+    newsList,
+    isEmpty,
+    changeScrapNews,
+    isError,
+  } = useHomeData();
 
   const goToDetail = (item: News) => {
     window.location.href = item.webUrl;
@@ -26,6 +32,18 @@ export const Home = () => {
       setTimeout(() => alert(Words.scrap_on), 200);
     }
   };
+
+  const goToRoot = () => {
+    window.location.href = "/";
+  };
+
+  if (isError) {
+    return (
+      <Container>
+        <ErrorScreen onClick={goToRoot} />
+      </Container>
+    );
+  }
 
   if (isEmpty) {
     return (
