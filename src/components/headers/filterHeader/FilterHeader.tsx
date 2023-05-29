@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Modal from "react-modal";
 
-import { vw } from "../../../../utils";
-import { Country, UserModalInput } from "../../../../types";
-import { Images, Words } from "../../../../constants";
-import { useSelectorFilter } from "../../../../hooks";
-import { FilterModal } from "../../../modals";
+import { vw } from "../../../utils";
+import { Country, UserModalInput } from "../../../types";
+import { Images, Words } from "../../../constants";
+import { useSelectorFilter } from "../../../hooks";
+import { FilterModal } from "../../modals";
 import { FilterButton } from "./FilterButton";
 
 Modal.setAppElement("#root");

@@ -1,4 +1,5 @@
 import _ from "lodash";
+import { ErrorText } from "../constants";
 
 export const Storage_Key = {
   scrap: "scrap",
@@ -9,7 +10,7 @@ const setItem = (key: string, data: any) => {
     const value = typeof data === "string" ? data : JSON.stringify(data);
     localStorage.setItem(key, value);
   } catch (err) {
-    alert("스토리지 저장시 문제가 발생하였습니다.");
+    alert(ErrorText.storage_set);
   }
 };
 
@@ -20,7 +21,7 @@ const getItem = <T>(key: string, defaultValue: T): T => {
     if (_.isNil(data)) return data ?? defaultValue;
     return JSON.parse(data);
   } catch (err) {
-    alert("스토리지에서 데이터를 가져오는데 문제가 발생하였습니다.");
+    alert(ErrorText.storage_get);
     return defaultValue;
   }
 };

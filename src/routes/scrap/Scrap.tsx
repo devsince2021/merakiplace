@@ -4,14 +4,14 @@ import styled from "styled-components";
 import ClipLoader from "react-spinners/ClipLoader";
 import _ from "lodash";
 
-import { NAVIGATION_HEIGHT } from "../../components/layouts/navigations/BottomNavigation";
+import { NAVIGATION_HEIGHT } from "../../components/navigations/BottomNavigation";
 import { News } from "../../types";
 import { NewsCard } from "../../components";
 import { vw } from "../../utils";
 import { Colors, Path, Words } from "../../constants";
 
 import { useScrapData } from "./hooks";
-import { EmptyComponent } from "./EmptyComponent";
+import { ScrapEmptyScreen } from "./ScrapEmptyScreen";
 
 export const Scrap = () => {
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ export const Scrap = () => {
   };
 
   if (isEmpty) {
-    return <EmptyComponent onClickButton={goToHome} />;
+    return <ScrapEmptyScreen onClickButton={goToHome} />;
   }
 
   return (

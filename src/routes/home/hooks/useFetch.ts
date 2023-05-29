@@ -1,23 +1,10 @@
 import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 import _ from "lodash";
 
 import { useSelectorFilter } from "../../../hooks";
 import { Filter, News, createNews } from "../../../types";
-import { getArticle } from "../helpers";
-import { useInView } from "react-intersection-observer";
-
-const canLoad = (filter: Filter, newsList?: News[]) => {
-  return (filter.page + 1) * 10 === newsList?.length;
-};
-
-const handleError = (err: any) => {
-  if (err.response.status === 429) {
-    alert("조금 후 다시 시도해주세요. ");
-    return;
-  }
-
-  throw err;
-};
+import { getArticle, canLoad, handleError } from "./helpers";
 
 export const useFetch = () => {
   const [filter, setFilter] = useSelectorFilter();

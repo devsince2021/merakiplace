@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import _ from "lodash";
 
+import { News } from "../../../types";
 import { useScrap } from "../../../hooks";
 import { useFetchScrap } from "./useFetchScrap";
-import { News } from "../../../types";
 
 export const useScrapData = () => {
   const { observerRef, isLoading, newsList, isEmpty } = useFetchScrap();

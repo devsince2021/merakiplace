@@ -2,8 +2,8 @@ import React, { FC } from "react";
 import styled from "styled-components";
 import _ from "lodash";
 
-import { vw } from "../../../../utils";
-import { Colors } from "../../../../constants";
+import { vw } from "../../../utils";
+import { Colors } from "../../../constants";
 
 const getCurrentStyle = (isActive: boolean, icons?: [string, string]) => {
   const defines = [
