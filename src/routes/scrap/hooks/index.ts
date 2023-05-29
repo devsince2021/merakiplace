@@ -1,0 +1,1 @@
+export { useScrapData } from "./useScrapData";

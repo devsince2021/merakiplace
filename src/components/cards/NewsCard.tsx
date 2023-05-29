@@ -9,9 +9,15 @@ interface Props {
   item: News;
   onClickCard: (item: News) => void;
   onChangeScrap: (item: News, currentState: boolean) => void;
+  visible?: boolean;
 }
 
-export const NewsCard: FC<Props> = ({ item, onClickCard, onChangeScrap }) => {
+export const NewsCard: FC<Props> = ({
+  item,
+  onClickCard,
+  onChangeScrap,
+  visible = false,
+}) => {
   const [isScrapped, setIsScrapped] = useState(item.isScrapped);
 
   const handleClickCard = () => {
@@ -23,6 +29,8 @@ export const NewsCard: FC<Props> = ({ item, onClickCard, onChangeScrap }) => {
     setIsScrapped((prev) => !prev);
     onChangeScrap(item, !isScrapped);
   };
+
+  if (!visible && !isScrapped) return null;
 
   return (
     <Container onClick={handleClickCard}>

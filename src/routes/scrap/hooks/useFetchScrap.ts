@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import _ from "lodash";
 
 import { useSelectorFilter } from "../../../hooks";
-import { Filter, News, createNews } from "../../../types";
-import { getArticle } from "../helpers";
+import { Filter, News } from "../../../types";
+import { getArticleScrapped } from "../helpers";
 import { useInView } from "react-intersection-observer";
 
 const canLoad = (filter: Filter, newsList?: News[]) => {
@@ -19,9 +19,10 @@ const handleError = (err: any) => {
   throw err;
 };
 
-export const useFetch = () => {
+export const useFetchScrap = () => {
   const [filter, setFilter] = useSelectorFilter();
   const [newsList, setNewsList] = useState<News[]>();
+
   const [isLoading, setIsLoading] = useState(false);
 
   const { ref, inView } = useInView();
@@ -47,8 +48,8 @@ export const useFetch = () => {
 
   const loadArticle = async (currentFilter: Filter) => {
     try {
-      const response = await getArticle(currentFilter);
-      const newList = response?.map(createNews) ?? [];
+      const response = await getArticleScrapped(currentFilter);
+      const newList = response ?? [];
 
       if (currentFilter.page === 0) {
         setNewsList(newList);
