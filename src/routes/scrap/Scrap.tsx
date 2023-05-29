@@ -11,7 +11,7 @@ import { vw } from "../../utils";
 import { Colors, Path, Words } from "../../constants";
 
 import { useScrapData } from "./hooks";
-import { EmptyComponent } from "./EmptyComponent";
+import { ScrapEmptyScreen } from "./ScrapEmptyScreen";
 
 export const Scrap = () => {
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ export const Scrap = () => {
   };
 
   if (isEmpty) {
-    return <EmptyComponent onClickButton={goToHome} />;
+    return <ScrapEmptyScreen onClickButton={goToHome} />;
   }
 
   return (

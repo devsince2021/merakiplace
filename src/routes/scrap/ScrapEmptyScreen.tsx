@@ -8,7 +8,7 @@ interface Props {
   onClickButton: () => void;
 }
 
-export const EmptyComponent: FC<Props> = ({ onClickButton }) => {
+export const ScrapEmptyScreen: FC<Props> = ({ onClickButton }) => {
   return (
     <Container>
       <Icon src={Images.docs} />
