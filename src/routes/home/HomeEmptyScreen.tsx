@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Images, Words } from "../../constants";
-import { vw } from "../../utils";
 
-export const EmptyComponent = () => {
+export const HomeEmptyScreen = () => {
   return (
     <Container>
       <Icon src={Images.docs} />
