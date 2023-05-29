@@ -16,23 +16,18 @@ const updateScrappedStatus = (
 
 export const useHomeData = () => {
   const { observerRef, isLoading, newsList, isEmpty } = useFetch();
-  const { scarp, unscrap, scrappedNews } = useScrap();
+  const { changeScrapNews, scrappedNews } = useScrap();
 
   const newsListWithScrapStatus = useMemo(
     () => updateScrappedStatus(newsList, scrappedNews),
     [newsList, scrappedNews]
   );
 
-  const changeScrap = (isScrapped: boolean, item: News) => {
-    const scrapApi = isScrapped ? scarp : unscrap;
-    scrapApi(item);
-  };
-
   return {
     observerRef,
     isLoading,
     newsList: newsListWithScrapStatus,
     isEmpty,
-    changeScrap,
+    changeScrapNews,
   };
 };

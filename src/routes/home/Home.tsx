@@ -12,7 +12,7 @@ import { Colors } from "../../constants";
 import { EmptyComponent } from "./EmptyComponent";
 
 export const Home = () => {
-  const { observerRef, isLoading, newsList, isEmpty, changeScrap } =
+  const { observerRef, isLoading, newsList, isEmpty, changeScrapNews } =
     useHomeData();
 
   const goToDetail = (item: News) => {
@@ -20,7 +20,7 @@ export const Home = () => {
   };
 
   const scrapNews = (item: News, isScrapped: boolean) => {
-    changeScrap(isScrapped, item);
+    changeScrapNews(isScrapped, item);
 
     if (isScrapped) {
       setTimeout(() => alert("스크랩 되었어요!"), 200);
