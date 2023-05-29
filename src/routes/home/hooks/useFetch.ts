@@ -69,7 +69,7 @@ export const useFetch = () => {
       setFilter({ ...filter, page: filter.page + 1 });
     }
   };
-  // console.log("newsList", newsList);
+
   return {
     isEmpty: !_.isNil(newsList) && _.isEmpty(newsList),
     isLoading,
