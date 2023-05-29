@@ -10,9 +10,10 @@ import { NewsCard } from "../../components";
 import { Colors } from "../../constants";
 import { useFetch } from "./useFetch";
 import { useScrap } from "./useScrap";
+import { EmptyComponent } from "./EmptyComponent";
 
 export const Home = () => {
-  const { observerRef, isLoading, newsList } = useFetch();
+  const { observerRef, isLoading, newsList, noContents } = useFetch();
   const { scarp, unscrap } = useScrap();
 
   const goToDetail = (item: News) => {
@@ -23,8 +24,18 @@ export const Home = () => {
     const scrapApi = isScrapped ? scarp : unscrap;
     scrapApi(item);
 
-    if (isScrapped) alert("스크랩 되었어요!");
+    if (isScrapped) {
+      setTimeout(() => alert("스크랩 되었어요!"), 200);
+    }
   };
+
+  if (noContents) {
+    return (
+      <Container>
+        <EmptyComponent />
+      </Container>
+    );
+  }
 
   return (
     <Container>

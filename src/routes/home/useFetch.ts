@@ -68,6 +68,7 @@ export const useFetch = () => {
   };
 
   return {
+    noContents: !_.isNil(newsList) && _.isEmpty(newsList),
     isLoading,
     newsList,
     observerRef: ref,
