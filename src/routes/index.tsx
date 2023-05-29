@@ -3,7 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { Path } from "../constants";
 import Root from "./Root";
 import Home from "./home";
-import Scrap from "./Scrap";
+import Scrap from "./scrap";
 
 const appRouter = createBrowserRouter([
   {
