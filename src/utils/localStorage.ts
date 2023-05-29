@@ -1,5 +1,9 @@
 import _ from "lodash";
 
+export const Storage_Key = {
+  scrap: "scrap",
+};
+
 const setItem = (key: string, data: any) => {
   try {
     const value = typeof data === "string" ? data : JSON.stringify(data);

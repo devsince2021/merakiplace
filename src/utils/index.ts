@@ -1,2 +1,2 @@
 export { vw, vh } from "./unit";
-export { storage } from "./localStorage";
+export { storage, Storage_Key } from "./localStorage";
