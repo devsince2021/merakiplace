@@ -18,3 +18,8 @@ export const Words = {
   scrap_on: "스크랩 되었어요!",
   scrap_off: "스크랩이 해제 되었어요!",
 };
+
+export const ErrorText = {
+  storage_set: "스토리지 저장시 문제가 발생하였습니다.",
+  storage_get: "스토리지에서 데이터를 가져오는데 문제가 발생하였습니다.",
+};
