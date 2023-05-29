@@ -21,7 +21,7 @@ export const useScrap = () => {
 
   const changeScrapNews = (isScrapped: boolean, item: News) => {
     const scrapTable = nextScrapNews.current;
-    scrapTable[item.id] = isScrapped ? item : undefined;
+    scrapTable[item.id] = isScrapped ? { ...item, isScrapped } : undefined;
     nextScrapNews.current = scrapTable;
   };
 
