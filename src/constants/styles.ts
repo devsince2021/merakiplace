@@ -1,4 +1,5 @@
 import { DefaultTheme } from "styled-components";
+import { Responsive } from "./responsive";
 
 export enum Colors {
   black100 = "#000",
@@ -10,6 +11,11 @@ export enum Colors {
   bgGray = "#F0F1F4",
 }
 
+export const Devices = {
+  tablet: `screen and (min-width: ${Responsive.tablet})`,
+};
+
 export const theme: DefaultTheme = {
   colors: Colors,
+  devices: Devices,
 };
