@@ -2,8 +2,8 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
-import { Path, Images, Words } from "../../../constants";
-import { vw } from "../../../utils";
+import { Path, Images, Words } from "../../constants";
+import { vw } from "../../utils";
 
 interface Destination {
   to: string;

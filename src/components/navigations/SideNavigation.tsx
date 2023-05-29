@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { vw } from "../../../utils";
+import { vw } from "../../utils";
 
 export const SideNavigation = () => {
   return <Container>side nav</Container>;

@@ -4,7 +4,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import _ from "lodash";
 import { useHomeData } from "./hooks";
 
-import { NAVIGATION_HEIGHT } from "../../components/layouts/navigations/BottomNavigation";
+import { NAVIGATION_HEIGHT } from "../../components/navigations/BottomNavigation";
 import { News } from "../../types";
 import { vw } from "../../utils";
 import { NewsCard } from "../../components";
