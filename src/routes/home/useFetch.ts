@@ -10,6 +10,12 @@ const canLoad = (filter: Filter, newsList?: News[]) => {
   return (filter.page + 1) * 10 === newsList?.length;
 };
 
+const handleTooManyRequestError = (err: any) => {
+  if (err.response.status === 429) {
+    alert("조금 후 다시 시도해주세요. ");
+  }
+};
+
 export const useFetch = () => {
   const [filter, setFilter] = useSelectorFilter();
   const [newsList, setNewsList] = useState<News[]>();
@@ -32,18 +38,28 @@ export const useFetch = () => {
   useEffect(() => {
     if (!isLoading) {
       setIsLoading(true);
-      getArticle(filter)
-        ?.then((res) => {
-          const newList = res.map(createNews);
-          setNewsList((prev = []) => [...prev, ...newList]);
-          setIsLoading(false);
-        })
-        .catch(() => {
-          setFilter({ ...filter, page: filter.page ? filter.page - 1 : 0 });
-          setIsLoading(false);
-        });
+      loadArticle(filter).finally(() => setIsLoading(false));
     }
   }, [filter]);
+
+  const loadArticle = async (currentFilter: Filter) => {
+    try {
+      const response = await getArticle(currentFilter);
+      const newList = response?.map(createNews) ?? [];
+
+      if (currentFilter.page === 0) {
+        setNewsList(newList);
+      } else {
+        setNewsList((prev = []) => [...prev, ...newList]);
+      }
+    } catch (err) {
+      handleTooManyRequestError(err);
+      setFilter({
+        ...currentFilter,
+        page: currentFilter.page ? currentFilter.page - 1 : 0,
+      });
+    }
+  };
 
   const increasePage = () => {
     if (canLoad(filter, newsList) && !isLoading) {
