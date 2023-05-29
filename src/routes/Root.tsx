@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import _ from "lodash";
 
 import { Path } from "../constants";
-import { RootLayout } from "../components";
+import { GlobalErrorBoundary, RootLayout } from "../components";
 
 const getPathname = () => {
   return Path.home;
@@ -19,7 +19,9 @@ const Root = () => {
 
   return (
     <RootLayout>
-      <Outlet />
+      <GlobalErrorBoundary>
+        <Outlet />
+      </GlobalErrorBoundary>
     </RootLayout>
   );
 };
