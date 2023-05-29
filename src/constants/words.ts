@@ -13,4 +13,6 @@ export const Words = {
   header_country_placeholder: "전체 국가",
   home_empty_list1: "해당 조건으로 검색된 기사가 없습니다.",
   home_empty_list2: "검색조건을 변경해주세요.",
+  scrap_empty_list1: "저장된 스크랩이 없습니다.",
+  scrap_empty_button: "스크랩 하러 가기",
 };
