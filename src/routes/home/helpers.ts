@@ -10,10 +10,10 @@ export const getArticle = _.throttle(
       keyword: filter.headline,
       date: filter.date,
       countries: filter.countries.map(({ id }) => id),
-      page: 0,
+      page: filter.page,
     };
     const data = await apiActions.getArticle(req);
-    return data;
+    return data.response.docs;
   },
   500,
   { trailing: false }

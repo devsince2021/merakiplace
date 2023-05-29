@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import _ from "lodash";
 
@@ -8,15 +8,22 @@ import { News, createNews } from "../../types";
 import { getArticle } from "./helpers";
 import { vw } from "../../utils";
 import { NewsCard } from "../../components";
+import { useInView } from "react-intersection-observer";
 
 export const Home = () => {
   const [filter, setFilter] = useSelectorFilter();
   const [newsList, setNewsList] = useState<News[]>();
 
+  const { ref, inView } = useInView();
+
+  useEffect(() => {
+    increasePage();
+  }, [inView]);
+
   useEffect(() => {
     getArticle(filter)?.then((res) => {
-      const news = res.map(createNews);
-      setNewsList(news);
+      const newList = res.map(createNews);
+      setNewsList((prev = []) => [...prev, ...newList]);
     });
   }, [filter]);
 
@@ -28,16 +35,28 @@ export const Home = () => {
     // do scrap
   };
 
+  const increasePage = () => {
+    if ((filter.page + 1) * 10 === newsList?.length) {
+      setFilter({ ...filter, page: filter.page + 1 });
+    }
+  };
+
   return (
     <Container>
-      {newsList?.map((news) => (
-        <NewsCard
-          key={news.id}
-          item={news}
-          onClickCard={goToDetail}
-          onChangeScrap={scrapNews}
-        />
-      ))}
+      {newsList?.map((news, idx) => {
+        const isTarget = idx % 10 === 7;
+
+        return (
+          <Fragment key={news.id}>
+            <NewsCard
+              item={news}
+              onClickCard={goToDetail}
+              onChangeScrap={scrapNews}
+            />
+            {isTarget && <div ref={ref} style={{ border: "1px solid red" }} />}
+          </Fragment>
+        );
+      })}
     </Container>
   );
 };
