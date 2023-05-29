@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState, MouseEvent } from "react";
 import styled from "styled-components";
 
 import { News } from "../../types";
@@ -22,7 +22,8 @@ export const NewsCard: FC<Props> = ({ item, onClickCard, onChangeScrap }) => {
     onClickCard(item);
   };
 
-  const handleClickScrap = () => {
+  const handleClickScrap = (event: MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
     setIsScrapped((prev) => !prev);
   };
 
@@ -30,10 +31,9 @@ export const NewsCard: FC<Props> = ({ item, onClickCard, onChangeScrap }) => {
     <Container onClick={handleClickCard}>
       <TitleContainer>
         <TitleText>{item.title}</TitleText>
-        <Icon
-          src={isScrapped ? Images.star_filled : Images.star_empty}
-          onClick={handleClickScrap}
-        />
+        <IconContainer onClick={handleClickScrap}>
+          <Icon src={isScrapped ? Images.star_filled : Images.star_empty} />
+        </IconContainer>
       </TitleContainer>
       <div style={{ height: "10px" }} />
       <MetaContainer>
@@ -78,6 +78,14 @@ const TitleText = styled.div`
   font-weight: 600;
 
   color: ${({ theme }) => theme.colors.black100};
+`;
+
+const IconContainer = styled.div`
+  display: flex;
+
+  justify-content: flex-end;
+  width: ${vw(40)};
+  height: ${vw(40)};
 `;
 
 const Icon = styled.img`
