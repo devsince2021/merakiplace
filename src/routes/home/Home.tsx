@@ -1,34 +1,47 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import ClipLoader from "react-spinners/ClipLoader";
 import _ from "lodash";
 
 import { NAVIGATION_HEIGHT } from "../../components/layouts/navigations/BottomNavigation";
 import { useSelectorFilter } from "../../hooks";
-import { News, createNews } from "../../types";
+import { Filter, News, createNews } from "../../types";
 import { getArticle } from "./helpers";
 import { vw } from "../../utils";
 import { NewsCard } from "../../components";
 import { useInView } from "react-intersection-observer";
+import { Colors } from "../../constants";
+
+const canLoad = (filter: Filter, newsList?: News[]) => {
+  return (filter.page + 1) * 10 === newsList?.length;
+};
 
 export const Home = () => {
   const [filter, setFilter] = useSelectorFilter();
   const [newsList, setNewsList] = useState<News[]>();
+  const [isLoading, setIsLoading] = useState(false);
 
   const { ref, inView } = useInView();
 
   useEffect(() => {
-    increasePage();
+    if (inView) {
+      increasePage();
+    }
   }, [inView]);
 
   useEffect(() => {
-    getArticle(filter)?.then((res) => {
-      const newList = res.map(createNews);
-      setNewsList((prev = []) => [...prev, ...newList]);
-    });
+    if (!isLoading) {
+      setIsLoading(true);
+      getArticle(filter)?.then((res) => {
+        const newList = res.map(createNews);
+        setNewsList((prev = []) => [...prev, ...newList]);
+        setIsLoading(false);
+      });
+    }
   }, [filter]);
 
   const goToDetail = (item: News) => {
-    // window.location.href = item.webUrl;
+    window.location.href = item.webUrl;
   };
 
   const scrapNews = (item: News, isScrapped: boolean) => {
@@ -36,7 +49,7 @@ export const Home = () => {
   };
 
   const increasePage = () => {
-    if ((filter.page + 1) * 10 === newsList?.length) {
+    if (canLoad(filter, newsList) && !isLoading) {
       setFilter({ ...filter, page: filter.page + 1 });
     }
   };
@@ -53,10 +66,16 @@ export const Home = () => {
               onClickCard={goToDetail}
               onChangeScrap={scrapNews}
             />
-            {isTarget && <div ref={ref} style={{ border: "1px solid red" }} />}
+            {isTarget && <div ref={ref} />}
           </Fragment>
         );
       })}
+
+      <ClipLoader
+        loading={isLoading}
+        color={Colors.black100}
+        cssOverride={{ position: "absolute", top: "35%" }}
+      />
     </Container>
   );
 };
