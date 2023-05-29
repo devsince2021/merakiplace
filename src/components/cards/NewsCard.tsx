@@ -57,13 +57,17 @@ const Container = styled.div`
   width: ${vw(335)};
   height: ${vw(104)};
   min-height: 104px;
-
   margin-bottom: 10px;
   padding: 10px ${vw(20)};
   background-color: ${({ theme }) => theme.colors.white90};
   border-radius: 8px;
 
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+  @media ${({ theme }) => theme.devices.tablet} {
+    width: 100%;
+    min-height: 150px;
+  }
 `;
 
 const TitleContainer = styled.div`
@@ -72,6 +76,11 @@ const TitleContainer = styled.div`
   min-height: 52px;
   height: ${vw(56)};
   max-height: 60px;
+
+  @media ${({ theme }) => theme.devices.tablet} {
+    height: 70%;
+    max-height: 100%;
+  }
 `;
 
 const TitleText = styled.div`
@@ -96,7 +105,9 @@ const IconContainer = styled.div`
 const Icon = styled.img`
   margin-top: 4.5px;
   width: ${vw(16)};
+  max-width: 20px;
   height: ${vw(15)};
+  max-height: 20px;
 `;
 
 const MetaContainer = styled.div`

@@ -99,4 +99,8 @@ const Container = styled.div`
   ::-webkit-scrollbar-thumb {
     background-color: ${({ theme }) => theme.colors.bgGray};
   }
+
+  @media ${({ theme }) => theme.devices.tablet} {
+    padding: ${vw(10)} ${vw(20)};
+  }
 `;

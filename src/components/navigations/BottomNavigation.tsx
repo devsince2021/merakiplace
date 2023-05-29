@@ -2,27 +2,8 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
-import { Path, Images, Words } from "../../constants";
 import { vw } from "../../utils";
-
-interface Destination {
-  to: string;
-  icon: [string, string];
-  title: string;
-}
-
-const buttons: Destination[] = [
-  {
-    to: Path.home,
-    icon: [Images.home_gray, Images.home_white],
-    title: Words.nav_home,
-  },
-  {
-    to: Path.scrap,
-    icon: [Images.scrap_gray, Images.scrap_white],
-    title: Words.nav_scrap,
-  },
-];
+import { navigationButtons } from "./defines";
 
 export const NAVIGATION_HEIGHT = 85;
 
@@ -31,7 +12,7 @@ export const BottomNavigation = () => {
 
   return (
     <Container>
-      {buttons.map(({ to, icon, title }) => {
+      {navigationButtons.map(({ to, icon, title }) => {
         const isActive = pathname === to;
 
         return (
