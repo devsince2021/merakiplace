@@ -7,7 +7,7 @@ import { Filter, News } from "../../../types";
 import { getArticleScrapped, canLoad, handleError } from "./helpers";
 
 export const useFetchScrap = () => {
-  const [filter, setFilter] = useSelectorFilter();
+  const [filter, setFilter, refreshPage] = useSelectorFilter();
   const [newsList, setNewsList] = useState<News[]>();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -16,7 +16,7 @@ export const useFetchScrap = () => {
 
   useEffect(() => {
     return () => {
-      setFilter({ ...filter, page: 0 });
+      refreshPage;
     };
   }, []);
 

@@ -3,12 +3,13 @@ import { useLocation } from "react-router-dom";
 
 import { Path } from "../constants";
 import { Filter } from "../types";
-import { update } from "../redux/filterSlice";
+import { update, refreshPage } from "../redux/filterSlice";
 import { Store } from "../redux";
 
 type Setter = (filter: Filter) => void;
+type RefreshPage = () => void;
 
-export const useSelectorFilter = (): [Filter, Setter] => {
+export const useSelectorFilter = (): [Filter, Setter, RefreshPage] => {
   const pathname = useLocation().pathname as Path;
   const selectedFilter = useSelector((state: Store) => state.filter[pathname]);
   const dispatch = useDispatch();
@@ -16,5 +17,10 @@ export const useSelectorFilter = (): [Filter, Setter] => {
   const updateFilter = (filter: Filter) => {
     dispatch(update({ pathname, filter }));
   };
-  return [selectedFilter, updateFilter];
+
+  const refreshPageCount = () => {
+    dispatch(refreshPage({ pathname }));
+  };
+
+  return [selectedFilter, updateFilter, refreshPageCount];
 };
