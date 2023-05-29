@@ -24,6 +24,12 @@ export const Home = () => {
   const { ref, inView } = useInView();
 
   useEffect(() => {
+    return () => {
+      setFilter({ ...filter, page: 0 });
+    };
+  }, []);
+
+  useEffect(() => {
     if (inView) {
       increasePage();
     }
@@ -32,11 +38,16 @@ export const Home = () => {
   useEffect(() => {
     if (!isLoading) {
       setIsLoading(true);
-      getArticle(filter)?.then((res) => {
-        const newList = res.map(createNews);
-        setNewsList((prev = []) => [...prev, ...newList]);
-        setIsLoading(false);
-      });
+      getArticle(filter)
+        ?.then((res) => {
+          const newList = res.map(createNews);
+          setNewsList((prev = []) => [...prev, ...newList]);
+          setIsLoading(false);
+        })
+        .catch(() => {
+          setFilter({ ...filter, page: filter.page ? filter.page - 1 : 0 });
+          setIsLoading(false);
+        });
     }
   }, [filter]);
 
