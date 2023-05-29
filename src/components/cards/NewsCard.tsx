@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, MouseEvent } from "react";
+import React, { FC, useState, MouseEvent } from "react";
 import styled from "styled-components";
 
 import { News } from "../../types";
@@ -14,10 +14,6 @@ interface Props {
 export const NewsCard: FC<Props> = ({ item, onClickCard, onChangeScrap }) => {
   const [isScrapped, setIsScrapped] = useState(item.isScrapped);
 
-  useEffect(() => {
-    onChangeScrap(item, isScrapped);
-  }, [isScrapped]);
-
   const handleClickCard = () => {
     onClickCard(item);
   };
@@ -25,6 +21,7 @@ export const NewsCard: FC<Props> = ({ item, onClickCard, onChangeScrap }) => {
   const handleClickScrap = (event: MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     setIsScrapped((prev) => !prev);
+    onChangeScrap(item, !isScrapped);
   };
 
   return (
