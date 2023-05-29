@@ -10,6 +10,7 @@ export const useFetch = () => {
   const [filter, setFilter, refreshPage] = useSelectorFilter();
   const [newsList, setNewsList] = useState<News[]>();
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const { ref, inView } = useInView();
 
@@ -43,6 +44,7 @@ export const useFetch = () => {
         setNewsList((prev = []) => [...prev, ...newList]);
       }
     } catch (err) {
+      setIsError(true);
       handleError(err);
       setFilter({
         ...currentFilter,
@@ -58,6 +60,7 @@ export const useFetch = () => {
   };
 
   return {
+    isError,
     isEmpty: !_.isNil(newsList) && _.isEmpty(newsList),
     isLoading,
     newsList,

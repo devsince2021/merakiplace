@@ -16,7 +16,7 @@ const updateScrappedStatus = (
 };
 
 export const useHomeData = () => {
-  const { observerRef, isLoading, newsList, isEmpty } = useFetch();
+  const { observerRef, isLoading, newsList, isEmpty, isError } = useFetch();
   const { changeScrapNews, scrappedNews } = useScrap();
 
   const newsListWithScrapStatus = useMemo(
@@ -25,6 +25,7 @@ export const useHomeData = () => {
   );
 
   return {
+    isError,
     observerRef,
     isLoading,
     newsList: newsListWithScrapStatus,
