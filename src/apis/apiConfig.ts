@@ -2,7 +2,7 @@ import axios from "axios";
 
 const instance = axios.create({
   baseURL: `${process.env.NYT_API_URL}`,
-  timeout: 2000,
+  timeout: 10000,
   headers: {
     "content-type": "application/x-www-form-urlencoded; charset=utf-8",
   },

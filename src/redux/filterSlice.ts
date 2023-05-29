@@ -8,7 +8,7 @@ interface UpdatePayload {
   filter: Filter;
 }
 
-const initialFilter = {
+const initialFilter: Filter = {
   headline: "",
   date: "",
   countries: [],

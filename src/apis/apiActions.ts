@@ -1,7 +1,8 @@
+import _ from "lodash";
 import Axios from "./apiConfig";
-import { SearchReq } from "./apiInterfaces";
+import { SearchReq, SearchRes } from "./apiInterfaces";
 
-export const getArticle = async (req: SearchReq) => {
+export const getArticle = async (req: SearchReq): Promise<SearchRes> => {
   const keyword = encodeURIComponent(req.keyword);
   const date = encodeURIComponent(req.date);
   const countries = req.countries.map(encodeURIComponent).join(" OR ");
@@ -10,12 +11,12 @@ export const getArticle = async (req: SearchReq) => {
     method: "GET",
     params: {
       q: keyword,
-      begin_date: date,
-      end_date: date,
-      fq: `glocatioins:(${countries})`,
+      begin_date: !_.isEmpty(date) ? date : undefined,
+      end_date: !_.isEmpty(date) ? date : undefined,
+      fq: !_.isEmpty(countries) ? `glocatioins:(${countries})` : undefined,
       page: req.page,
     },
   });
-  console.log(response);
-  return response;
+
+  return response.data;
 };

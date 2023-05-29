@@ -24,6 +24,8 @@ const buttons: Destination[] = [
   },
 ];
 
+export const NAVIGATION_HEIGHT = 85;
+
 export const BottomNavigation = () => {
   const { pathname } = useLocation();
 
@@ -53,8 +55,10 @@ const Container = styled.div`
   width: ${vw(375)};
   padding: ${vw(20)} ${vw(80)};
 
-  min-height: 65px;
-  max-height: 95px;
+  height: ${NAVIGATION_HEIGHT}px;
+
+  /* min-height: 65px;
+  max-height: 95px; */
 
   position: fixed;
   bottom: 0;
