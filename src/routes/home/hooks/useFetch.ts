@@ -7,7 +7,7 @@ import { Filter, News, createNews } from "../../../types";
 import { getArticle, canLoad, handleError } from "./helpers";
 
 export const useFetch = () => {
-  const [filter, setFilter] = useSelectorFilter();
+  const [filter, setFilter, refreshPage] = useSelectorFilter();
   const [newsList, setNewsList] = useState<News[]>();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -15,7 +15,7 @@ export const useFetch = () => {
 
   useEffect(() => {
     return () => {
-      setFilter({ ...filter, page: 0 });
+      refreshPage();
     };
   }, []);
 

@@ -8,6 +8,10 @@ interface UpdatePayload {
   filter: Filter;
 }
 
+interface RefreshPagePayload {
+  pathname: Path;
+}
+
 const initialFilter: Filter = {
   headline: "",
   date: "",
@@ -29,8 +33,13 @@ export const filterSlice = createSlice({
       const currentPath = action.payload.pathname;
       state[currentPath] = action.payload.filter;
     },
+    refreshPage: (state, action: PayloadAction<RefreshPagePayload>) => {
+      const currentPath = action.payload.pathname;
+      const currentPathState = state[currentPath];
+      state[currentPath] = { ...currentPathState, page: 0 };
+    },
   },
 });
 
-export const { update } = filterSlice.actions;
+export const { update, refreshPage } = filterSlice.actions;
 export default filterSlice.reducer;
