@@ -15,4 +15,6 @@ export const Words = {
   home_empty_list2: "검색조건을 변경해주세요.",
   scrap_empty_list1: "저장된 스크랩이 없습니다.",
   scrap_empty_button: "스크랩 하러 가기",
+  scrap_on: "스크랩 되었어요!",
+  scrap_off: "스크랩이 해제 되었어요!",
 };
