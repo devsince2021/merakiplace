@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 import _ from "lodash";
 
 import { useSelectorFilter } from "../../../hooks";
 import { Filter, News, createNews } from "../../../types";
 import { getArticle, canLoad, handleError } from "./helpers";
-import { useInView } from "react-intersection-observer";
 
 export const useFetch = () => {
   const [filter, setFilter] = useSelectorFilter();
