@@ -46,6 +46,7 @@ export const Home = () => {
               item={news}
               onClickCard={goToDetail}
               onChangeScrap={scrapNews}
+              visible
             />
             {isTarget && <div ref={observerRef} />}
           </Fragment>
