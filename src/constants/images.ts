@@ -16,4 +16,5 @@ export const Images = {
   calendar_blue: attachBaseUrl("calendar_check_blue@2x.png"),
   star_empty: attachBaseUrl("star_empty@2x.png"),
   star_filled: attachBaseUrl("star_filled@2x.png"),
+  docs: attachBaseUrl("docs@2x.png"),
 };
