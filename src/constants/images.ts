@@ -1,5 +1,5 @@
 const baseUrl =
-  process.env.NODE_ENV === "Production"
+  process.env.NODE_ENV === "production"
     ? `${process.env.IMAGE_BASE_URL}/assets`
     : "/assets";
 
