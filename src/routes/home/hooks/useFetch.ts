@@ -16,7 +16,7 @@ const handleError = (err: any) => {
     return;
   }
 
-  throw new err();
+  throw err;
 };
 
 export const useFetch = () => {
