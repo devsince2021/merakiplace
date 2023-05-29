@@ -1,19 +1,22 @@
 import { useEffect, useState } from "react";
 import _ from "lodash";
 
-import { useSelectorFilter } from "../../hooks";
-import { Filter, News, createNews } from "../../types";
-import { getArticle } from "./helpers";
+import { useSelectorFilter } from "../../../hooks";
+import { Filter, News, createNews } from "../../../types";
+import { getArticle } from "../helpers";
 import { useInView } from "react-intersection-observer";
 
 const canLoad = (filter: Filter, newsList?: News[]) => {
   return (filter.page + 1) * 10 === newsList?.length;
 };
 
-const handleTooManyRequestError = (err: any) => {
+const handleError = (err: any) => {
   if (err.response.status === 429) {
     alert("조금 후 다시 시도해주세요. ");
+    return;
   }
+
+  throw new err();
 };
 
 export const useFetch = () => {
@@ -53,7 +56,7 @@ export const useFetch = () => {
         setNewsList((prev = []) => [...prev, ...newList]);
       }
     } catch (err) {
-      handleTooManyRequestError(err);
+      handleError(err);
       setFilter({
         ...currentFilter,
         page: currentFilter.page ? currentFilter.page - 1 : 0,
@@ -66,9 +69,9 @@ export const useFetch = () => {
       setFilter({ ...filter, page: filter.page + 1 });
     }
   };
-
+  // console.log("newsList", newsList);
   return {
-    noContents: !_.isNil(newsList) && _.isEmpty(newsList),
+    isEmpty: !_.isNil(newsList) && _.isEmpty(newsList),
     isLoading,
     newsList,
     observerRef: ref,

@@ -1,5 +1,7 @@
 import { Docs } from "../apis/apiInterfaces";
 
+export type ScrappedNews = Record<News["id"], News | undefined>;
+
 export interface News {
   title: string;
   reporter: string;

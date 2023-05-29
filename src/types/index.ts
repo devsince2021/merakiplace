@@ -1,2 +1,2 @@
 export { Filter, UserModalInput, Country } from "./filter";
-export { News, createNews } from "./news";
+export { News, createNews, ScrappedNews } from "./news";

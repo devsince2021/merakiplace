@@ -13,11 +13,11 @@ const setItem = (key: string, data: any) => {
   }
 };
 
-const getItem = (key: string) => {
+const getItem = <T>(key: string, defaultValue?: T) => {
   try {
     const data = localStorage.getItem(key);
 
-    if (_.isNil(data)) return data;
+    if (_.isNil(data)) return data ?? defaultValue;
     return JSON.parse(data);
   } catch (err) {
     alert("스토리지에서 데이터를 가져오는데 문제가 발생하였습니다.");
