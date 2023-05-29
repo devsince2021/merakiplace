@@ -56,8 +56,7 @@ export const NewsCard: FC<Props> = ({
 const Container = styled.div`
   width: ${vw(335)};
   height: ${vw(104)};
-  min-height: 150px;
-
+  min-height: 104px;
   margin-bottom: 10px;
   padding: 10px ${vw(20)};
   background-color: ${({ theme }) => theme.colors.white90};
@@ -67,6 +66,7 @@ const Container = styled.div`
 
   @media ${({ theme }) => theme.devices.tablet} {
     width: 100%;
+    min-height: 150px;
   }
 `;
 
