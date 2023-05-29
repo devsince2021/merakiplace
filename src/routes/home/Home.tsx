@@ -2,34 +2,32 @@ import React, { Fragment } from "react";
 import styled from "styled-components";
 import ClipLoader from "react-spinners/ClipLoader";
 import _ from "lodash";
+import { useHomeData } from "./hooks";
 
 import { NAVIGATION_HEIGHT } from "../../components/layouts/navigations/BottomNavigation";
 import { News } from "../../types";
 import { vw } from "../../utils";
 import { NewsCard } from "../../components";
 import { Colors } from "../../constants";
-import { useFetch } from "./useFetch";
-import { useScrap } from "./useScrap";
 import { EmptyComponent } from "./EmptyComponent";
 
 export const Home = () => {
-  const { observerRef, isLoading, newsList, noContents } = useFetch();
-  const { scarp, unscrap } = useScrap();
+  const { observerRef, isLoading, newsList, isEmpty, changeScrap } =
+    useHomeData();
 
   const goToDetail = (item: News) => {
     window.location.href = item.webUrl;
   };
 
   const scrapNews = (item: News, isScrapped: boolean) => {
-    const scrapApi = isScrapped ? scarp : unscrap;
-    scrapApi(item);
+    changeScrap(isScrapped, item);
 
     if (isScrapped) {
       setTimeout(() => alert("스크랩 되었어요!"), 200);
     }
   };
 
-  if (noContents) {
+  if (isEmpty) {
     return (
       <Container>
         <EmptyComponent />
