@@ -35,7 +35,7 @@ export const NewsCard: FC<Props> = ({ item, onClickCard, onChangeScrap }) => {
           onClick={handleClickScrap}
         />
       </TitleContainer>
-      <div style={{ height: vw(8) }} />
+      <div style={{ height: "10px" }} />
       <MetaContainer>
         <ReportContainer>
           <ReporterText>{item.organization}</ReporterText>
@@ -50,10 +50,11 @@ export const NewsCard: FC<Props> = ({ item, onClickCard, onChangeScrap }) => {
 
 const Container = styled.div`
   width: ${vw(335)};
+  height: ${vw(104)};
   min-height: 104px;
 
   margin-bottom: 10px;
-  padding: ${vw(10)} ${vw(20)};
+  padding: 10px ${vw(20)};
   background-color: ${({ theme }) => theme.colors.white90};
   border-radius: 8px;
 
