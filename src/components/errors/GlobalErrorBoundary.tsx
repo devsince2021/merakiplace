@@ -1,7 +1,7 @@
-import axios, { AxiosError } from "axios";
-import React, { Component, ErrorInfo, ReactNode } from "react";
-
+import React, { ReactNode } from "react";
 import styled from "styled-components";
+
+import { ErrorScreen } from "./ErrorScreen";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -30,14 +30,7 @@ export class GlobalErrorBoundary extends React.Component<
 
   render() {
     if (this.state.hasError) {
-      return (
-        <Container>
-          <Text>죄송합니다 예상치 못한 문제가 발생하였습니다.</Text>
-          <Text>아래 버튼을 이용하여 다시 시작해주세요.</Text>
-          <div style={{ height: "20px" }} />
-          <RestartButton onClick={this.goBackHome}>다시 시작</RestartButton>
-        </Container>
-      );
+      return <ErrorScreen onClick={this.goBackHome} />;
     }
 
     return this.props.children;
