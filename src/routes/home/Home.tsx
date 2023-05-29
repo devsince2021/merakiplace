@@ -1,30 +1,29 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import styled from "styled-components";
 import ClipLoader from "react-spinners/ClipLoader";
 import _ from "lodash";
 
 import { NAVIGATION_HEIGHT } from "../../components/layouts/navigations/BottomNavigation";
-import { Filter, News } from "../../types";
+import { News } from "../../types";
 import { vw } from "../../utils";
 import { NewsCard } from "../../components";
 import { Colors } from "../../constants";
 import { useFetch } from "./useFetch";
+import { useScrap } from "./useScrap";
 
 export const Home = () => {
   const { observerRef, isLoading, newsList } = useFetch();
-  const [scrappedNews, setScrappedNews] = useState<News[]>([]);
+  const { scarp, unscrap } = useScrap();
 
   const goToDetail = (item: News) => {
     window.location.href = item.webUrl;
   };
 
   const scrapNews = (item: News, isScrapped: boolean) => {
-    if (isScrapped) {
-      setScrappedNews((prev) => [...prev, item]);
-      alert("스크랩 되었어요!");
-    } else {
-      setScrappedNews((prev) => prev.filter(({ id }) => id !== item.id));
-    }
+    const scrapApi = isScrapped ? scarp : unscrap;
+    scrapApi(item);
+
+    if (isScrapped) alert("스크랩 되었어요!");
   };
 
   return (

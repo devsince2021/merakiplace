@@ -1,16 +1,10 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
-import styled from "styled-components";
-import ClipLoader from "react-spinners/ClipLoader";
+import { useEffect, useState } from "react";
 import _ from "lodash";
 
-import { NAVIGATION_HEIGHT } from "../../components/layouts/navigations/BottomNavigation";
 import { useSelectorFilter } from "../../hooks";
 import { Filter, News, createNews } from "../../types";
 import { getArticle } from "./helpers";
-import { storage, vw } from "../../utils";
-import { NewsCard } from "../../components";
 import { useInView } from "react-intersection-observer";
-import { Colors } from "../../constants";
 
 const canLoad = (filter: Filter, newsList?: News[]) => {
   return (filter.page + 1) * 10 === newsList?.length;
