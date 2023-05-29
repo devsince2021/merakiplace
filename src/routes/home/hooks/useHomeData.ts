@@ -1,8 +1,9 @@
 import { useMemo } from "react";
 import _ from "lodash";
-import { useFetch } from "./useFetch";
-import { useScrap } from "./useScrap";
+
 import { News, ScrappedNews } from "../../../types";
+import { useScrap } from "../../../hooks";
+import { useFetch } from "./useFetch";
 
 const updateScrappedStatus = (
   list: News[] = [],

@@ -8,7 +8,7 @@ import { NAVIGATION_HEIGHT } from "../../components/layouts/navigations/BottomNa
 import { News } from "../../types";
 import { vw } from "../../utils";
 import { NewsCard } from "../../components";
-import { Colors } from "../../constants";
+import { Colors, Words } from "../../constants";
 import { EmptyComponent } from "./EmptyComponent";
 
 export const Home = () => {
@@ -20,10 +20,10 @@ export const Home = () => {
   };
 
   const scrapNews = (item: News, isScrapped: boolean) => {
-    changeScrapNews(isScrapped, item);
+    changeScrapNews(item, isScrapped);
 
     if (isScrapped) {
-      setTimeout(() => alert("스크랩 되었어요!"), 200);
+      setTimeout(() => alert(Words.scrap_on), 200);
     }
   };
 

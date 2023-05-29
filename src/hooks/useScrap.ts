@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import _ from "lodash";
 
-import { News, ScrappedNews } from "../../../types";
-import { storage, Storage_Key } from "../../../utils";
+import { News, ScrappedNews } from "../types";
+import { storage, Storage_Key } from "../utils";
 
 export const useScrap = () => {
   const nextScrapNews = useRef<ScrappedNews>({});
@@ -19,13 +19,14 @@ export const useScrap = () => {
     };
   }, []);
 
-  const changeScrapNews = (isScrapped: boolean, item: News) => {
+  const changeScrapNews = (item: News, isScrapped: boolean) => {
     const scrapTable = nextScrapNews.current;
     scrapTable[item.id] = isScrapped ? { ...item, isScrapped } : undefined;
     nextScrapNews.current = scrapTable;
   };
 
   return {
+    nextScrapStatus: nextScrapNews.current,
     scrappedNews: currentScarpNews,
     changeScrapNews,
   };
